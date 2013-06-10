@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Área de Clientes</title>
+</h:head>
+<h:body>
+	<h:form style="font-size: 12px">
+		<ui:composition template="/templates/padrao.xhtml">
+			<ui:define name="content">
+				<h:form>
+					<h4>LISTA DE DEPARTAMENTOS</h4>
+					<p:dataTable id="tbDepartamentos" rows="10"
+						paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+						rowsPerPageTemplate="5,10,15" value="#{fichasBean.departamentos}"
+						var="d">
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Código" />
+							</f:facet>
+							<h:outputText value="#{d.codigo}" />
+						</p:column>
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Descrição" />
+							</f:facet>
+							<h:outputText value="#{d.nome}" />
+						</p:column>
+					</p:dataTable>
+					<p:commandButton value="Retornar" action="/menu_tecnicos.xhtml" />
+				</h:form>
+			</ui:define>
+		</ui:composition>
+	</h:form>
+</h:body>
+</html>

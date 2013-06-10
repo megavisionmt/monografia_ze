@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Iterações da Ficha</title>
+</h:head>
+<h:body>
+	<h:form style="font-size: 12px">
+		<ui:composition template="/templates/padrao.xhtml">
+			<ui:define name="content">
+				<h:form>					
+					<p:dataTable id="tbIteracoes" rows="10"
+							paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+							rowsPerPageTemplate="5,10,15"
+						value="#{fichasBean.allIteracoesByFicha}" var="i">
+						<p:column style="width: 20%;">
+
+							<f:facet name="header">
+								<h:outputText value="Data" />
+							</f:facet>
+							<h:outputText value="#{i.data}">
+								<f:convertDateTime pattern="dd/MM/yyyy" />
+							</h:outputText>
+
+						</p:column>
+						<p:column style="width: 80%;">
+							<f:facet name="header">
+								<h:outputText value="Solução" />
+							</f:facet>
+							<h:outputText value="#{i.solucao}" />
+						</p:column>
+					</p:dataTable>
+					<p:commandButton value="Retornar" action="/menu_clientes.xhtml" />
+				</h:form>
+			</ui:define>
+		</ui:composition>
+	</h:form>
+</h:body>
+</html>

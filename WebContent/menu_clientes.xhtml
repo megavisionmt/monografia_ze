@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Área de Clientes</title>
+</h:head>
+<h:body>
+	<h:form style="font-size: 12px">
+		<ui:composition template="/templates/padrao.xhtml">
+			<ui:define name="content">
+				<h:form header="" style="font-size: 15px">
+					<p:menubar>
+						<p:submenu label="Procedimentos" icon="ui-icon-search">
+							<p:menuitem value="Novo Chamado"
+								action="#{fichasBean.nova_ficha}" />
+							<p:menuitem value="Todos os Chamados"
+								action="#{fichasBean.allFichasTodas}" update=":frmChamados:tbChamados"/>
+							<p:menuitem value="Chamados Baixados"
+								action="#{fichasBean.allFichasBaixadas}" update=":frmChamados:tbChamados"/>
+							<p:menuitem value="Chamados Abertos"
+								action="#{fichasBean.allFichasAbertas}" update=":frmChamados:tbChamados"/>
+						</p:submenu>
+					</p:menubar>
+				</h:form>
+
+				<p:panel header="Chamados em Aberto"
+					style="width: 1040px font-size: 9px">
+
+					<h:form id="frmMsgErro">
+						<h:panelGroup id="pnlMsgErros">
+							<p:messages id="msgErros" />
+						</h:panelGroup>
+					</h:form>
+					<h:form id="frmChamados" style="font-size: 12px">
+
+						<p:dataTable id="tbChamados" var="f" paginator="true" rows="10"
+							paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+							rowsPerPageTemplate="5,10,15" value="#{fichasBean.filtroFichas}"
+							rowKey="#{f.numero}" selection="#{fichasBean.fichaSelecionada}"
+							selectionMode="single" draggableColumns="true">
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="Código" />
+								</f:facet>
+								<h:outputText value="#{f.numero}" />
+							</p:column>
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="Data" />
+								</f:facet>
+								<h:outputText value="#{f.data}">
+									<f:convertDateTime pattern="dd/MM/yyyy" />
+								</h:outputText>
+							</p:column>
+
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="Assunto" />
+								</f:facet>
+								<h:outputText value="#{f.assunto}" />
+							</p:column>
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="Usuário" />
+								</f:facet>
+								<h:outputText value="#{f.usuario.login}" />
+							</p:column>
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="Status" />
+								</f:facet>
+								<h:outputText value="#{f.status}" />
+							</p:column>
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="OPÇÕES" />
+								</f:facet>
+								<p:commandButton value="Iterações"
+									action="#{fichasBean.mostrarIteracoes}" />
+							</p:column>
+						</p:dataTable>
+						<p:commandButton value="Retornar" action="/login.xhtml" />
+					</h:form>
+				</p:panel>
+			</ui:define>
+		</ui:composition>
+	</h:form>
+</h:body>
+</html>

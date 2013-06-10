@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Área de Clientes</title>
+</h:head>
+<h:body>
+	<ui:composition template="/templates/padrao.xhtml">
+		<ui:define name="content">
+			<h:form>
+		Novo Chamado		
+		<p:outputLabel
+					value="Chamado em Nome de: #{usuarioBean.usuario.empresa}" />
+				<br />
+				<p:outputLabel value="Responsável: #{usuarioBean.usuario.nome}" />
+				<br />
+				<p:outputLabel
+					value="Data Chamado: #{fichasBean.fichaSelecionada.data}">
+					<f:convertDateTime pattern="dd/MM/yyyy" />
+				</p:outputLabel>
+				<br />
+				<p:panel header="informações do Problema:">
+					<p:panelGrid columns="2">
+						<p:outputLabel value="AO Departamento:" />
+						<p:selectOneMenu
+							value="#{fichasBean.fichaSelecionada.departamento}">
+							<f:selectItem itemLabel="Selecione um Departamento" itemValue="" />
+							<f:selectItems value="#{fichasBean.departamentos}" var="dep"
+								itemLabel="#{dep.nome}" itemValue="#{dep.nome}" />
+						</p:selectOneMenu>
+
+						<p:outputLabel value="Sistema Referente:" />
+						<p:selectOneMenu value="#{fichasBean.fichaSelecionada.sistema}">
+							<f:selectItem itemLabel="Selecione um Sistema" itemValue="" />
+							<f:selectItems value="#{fichasBean.sistemas}" var="sis"
+								itemLabel="#{sis.nome}" itemValue="#{sis.nome}" />
+						</p:selectOneMenu>
+
+						<p:outputLabel value="Assunto:" />
+						<p:inputText value="#{fichasBean.fichaSelecionada.assunto}" />
+					</p:panelGrid>
+					<br />
+					<p:outputLabel value="Descrição do Problema:" />
+					<br />
+					<p:inputTextarea value="#{fichasBean.fichaSelecionada.problema}"
+						cols="80" />
+				</p:panel>
+				<p:commandButton value="Registrar" action="#{fichasBean.salvar}">
+					<f:setPropertyActionListener
+						target="#{fichasBean.fichaSelecionada.usuario}"
+						value="#{usuarioBean.usuario}" />
+				</p:commandButton>
+				<p:commandButton value="Retornar" action="/menu_clientes.xhtml"
+					ajax="false" />
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

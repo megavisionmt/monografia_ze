@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>tham informatica</title>
+</h:head>
+<h:body>
+	<h:form style="font-size: 12px">
+		<ui:composition template="/templates/padrao.xhtml">
+			<ui:define name="content">
+				<h:form style="font-size: 15px">
+					<p:outputLabel value="Realizando atendimento:" />
+					<br />
+					<p:outputLabel value="referente ao Chamado:" />
+					<p:selectOneMenu value="#{iteracaoBean.iteracao.fichaRef}">
+						<f:selectItem itemLabel="Selecione um Chamado" itemValue="" />
+						<f:selectItems value="#{fichasBean.allFichasAbertas}"
+							var="chamados" itemLabel="#{chamados.assunto}"
+							itemValue="#{chamados.numero}" />
+					</p:selectOneMenu>
+					<br />
+					<p:panel header="Dados do atendimento">
+						<h:outputText
+							value="Data: #{iteracaoBean.iteracao.data}">
+						</h:outputText>
+						<br />
+						<br />
+						<p:outputLabel value="Solução prescrita:" />
+						<br />
+						<p:inputTextarea value="#{iteracaoBean.iteracao.solucao}"  rows="5" cols="120"/>
+						<br />
+						<p:selectOneMenu value="#{iteracaoBean.statusChamado}">
+							<f:selectItem itemLabel="Aberto" itemValue="A" />
+							<f:selectItem itemLabel="Baixado" itemValue="B" />
+						</p:selectOneMenu>
+					</p:panel>
+					<p:commandButton value="Registrar" action="#{iteracaoBean.salvar}">
+						<f:setPropertyActionListener
+							target="#{iteracaoBean.iteracao.usuario}"
+							value="#{usuarioBean.usuario}" />
+					</p:commandButton>
+					<p:commandButton value="Retornar" action="/menu_tecnicos.xhtml" />
+				</h:form>
+			</ui:define>
+		</ui:composition>
+	</h:form>
+</h:body>
+</html>
